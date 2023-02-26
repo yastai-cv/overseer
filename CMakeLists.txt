@@ -27,8 +27,18 @@ set(SOURCES
     # src/vision/visual_memory.cpp
 )
 
+# Add external libraries
+set(CMAKE_PREFIX_PATH "external/build" ${CMAKE_PREFIX_PATH})
+
+# Find OpenCV package
+find_package(OpenCV REQUIRED)
+
 # Add executable target
 add_executable(overseer ${SOURCES})
+
+# Link executable target with OpenCV libraries
+target_link_libraries(overseer ${OpenCV_LIBS})
+# target_link_libraries(overseer ${OpenCV_LIBS} opencv_contrib)
 
 # Add testing subdirectory
 add_subdirectory(tests)

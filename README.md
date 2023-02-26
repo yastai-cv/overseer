@@ -20,3 +20,28 @@ project/
 │   └── test1.cpp
 └── build/
 ```
+
+## Requirements
+
+```bash
+./install_dependencies.sh
+```
+
+
+## Build
+
+```bash
+cd build
+cmake ..
+cmake --build .  --parallel $(nproc)
+pushd tests
+./overseer_test_main
+popd
+```
+
+Run the program with
+
+```bash
+cd build
+./overseer
+```
