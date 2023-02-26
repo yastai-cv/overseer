@@ -17,7 +17,7 @@ include_directories(include)
 # Add source files
 set(SOURCES
     src/main.cpp
-    # src/overseer.cpp
+    src/overseer.cpp
     # src/signal.cpp
     # src/cognition/task.cpp
     # src/perception/cortex_worker.cpp
