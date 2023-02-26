@@ -6,5 +6,5 @@
 int main(int argc, char **argv)
 {
     overseer::Overseer overseer;
-    overseer.run(argv[1]);
+    return overseer.run(argv[1]);
 }

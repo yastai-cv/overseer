@@ -23,8 +23,8 @@ set(SOURCES
     # src/perception/cortex_worker.cpp
     # src/sensory/sensory_input.cpp
     # src/sensory/sensory_pathway.cpp
-    # src/vision/image.cpp
-    # src/vision/visual_memory.cpp
+    src/vision/image.cpp
+    src/vision/visual_memory.cpp
 )
 
 # Add external libraries

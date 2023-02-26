@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/"
+                "${workspaceFolder}/external/opencv-4.x/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang-12",
