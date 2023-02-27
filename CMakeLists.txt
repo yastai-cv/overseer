@@ -18,11 +18,11 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/overseer.cpp
-    # src/signal.cpp
     # src/cognition/task.cpp
     # src/perception/cortex_worker.cpp
-    # src/sensory/sensory_input.cpp
-    # src/sensory/sensory_pathway.cpp
+    src/sensory/signal.cpp
+    src/sensory/input.cpp
+    src/sensory/pathway.cpp
     src/vision/image.cpp
     src/vision/visual_memory.cpp
 )

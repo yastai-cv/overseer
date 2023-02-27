@@ -1,6 +1,11 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include "overseer/overseer.hpp"
+#include "overseer/vision/image.hpp"
+#include "overseer/vision/visual_memory.hpp"
+#include "overseer/sensory/input.hpp"
+#include "overseer/sensory/pathway.hpp"
+
 
 namespace overseer
 {
@@ -34,6 +39,18 @@ int Overseer::run(const char *image_path)
     // Display image
     // cv::imshow("Image", imgRef);
     // cv::waitKey();
+
+    // Sensory input and pathway
+    // TODO: Rename to Input and Pathway
+    sensory::SensoryInput sensory_input("test", nullptr);
+    sensory::SensoryPathway sensory_pathway(&sensory_input);
+
+    std::thread input_thread(&sensory::SensoryInput::collect, &sensory_input);
+    std::thread pathway_thread(&sensory::SensoryPathway::process, &sensory_pathway);
+    
+    input_thread.join();
+    pathway_thread.join();
+
     return 0;
 }
 } // namespace overseer
