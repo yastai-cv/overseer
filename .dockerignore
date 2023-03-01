@@ -1,0 +1,8 @@
+.vscode
+
+# Ignore everything in the external directory
+external/*
+build/*
+
+# Except this file
+!extenal/build_external.sh

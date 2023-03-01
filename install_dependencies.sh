@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install dependencies
-sudo apt update && sudo apt install -y \
+apt update && apt install -y \
     cmake g++ wget unzip \
     libavcodec-dev libavformat-dev libswscale-dev libgtk2.0-dev
     libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libopenjp2-7-dev
