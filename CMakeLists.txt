@@ -6,6 +6,7 @@ project(overseer VERSION 1.0)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 20)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 # Options for building
 OPTION(OVERSEER_BUILD_TEST "Build tests" ON)
@@ -23,6 +24,7 @@ set(SOURCES
     src/sensory/signal.cpp
     src/sensory/input.cpp
     src/sensory/pathway.cpp
+    src/sensory/sense.cpp
     src/vision/image.cpp
     src/vision/visual_memory.cpp
 )

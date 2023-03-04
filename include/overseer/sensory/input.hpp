@@ -4,6 +4,7 @@
 #include <queue>
 #include <thread>
 #include <mutex>
+#include <chrono>
 #include <condition_variable>
 #include <opencv2/opencv.hpp>
 #include <overseer/vision/image.hpp>
@@ -33,10 +34,19 @@ class CameraSource : public Source
 
 
 
-class SensoryInput
+class Input
 {
 public:
-    SensoryInput(std::string name, Source *source) : name(name), source(source) {};
+    // Use unique pointer with source
+    Input(std::string name, Source *source) : name(name), source(source) {};
+
+    std::string get_name() {
+        return name;
+    }
+
+    bool is_done() {
+        return done;
+    }
 
     void collect()
     {
@@ -52,28 +62,32 @@ public:
     }
 
     // std::unique_ptr<vision::ImageInstance> next()
-    int next()
+    int pull()
     {
         std::unique_lock<std::mutex> lock(queue_mutex);
         queue_cv.wait(lock, [this](){ return !queue.empty() || done; });
 
         if (done && queue.empty()) {
+            // TODO: use a cleaner way to break out of the loop
             return -1;
         }
 
         int value = queue.front();
         queue.pop();
-
+        lock.unlock();
         return value;
     }
 
     void close()
     {
+        std::lock_guard<std::mutex> lock(queue_mutex);
         done = true;
+        queue_cv.notify_one();
     }
 
 private:
     std::string name;
+    // std::unique_ptr<Source> source;
     Source *source;
     std::mutex queue_mutex;
     std::condition_variable queue_cv;

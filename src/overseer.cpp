@@ -5,6 +5,8 @@
 #include "overseer/vision/visual_memory.hpp"
 #include "overseer/sensory/input.hpp"
 #include "overseer/sensory/pathway.hpp"
+#include "overseer/sensory/signal.hpp"
+#include "overseer/sensory/sense.hpp"
 
 
 namespace overseer
@@ -41,15 +43,15 @@ int Overseer::run(const char *image_path)
     // cv::waitKey();
 
     // Sensory input and pathway
-    // TODO: Rename to Input and Pathway
-    sensory::SensoryInput sensory_input("test", nullptr);
-    sensory::SensoryPathway sensory_pathway(&sensory_input);
+    sensory::Input sensory_input("test input", nullptr);
+    sensory::Signal sensory_signal("test signal");
+    sensory::Pathway sensory_pathway(&sensory_input, &sensory_signal);
+    sensory::Sense sense("test sense", &sensory_input, &sensory_pathway, &sensory_signal);
 
-    std::thread input_thread(&sensory::SensoryInput::collect, &sensory_input);
-    std::thread pathway_thread(&sensory::SensoryPathway::process, &sensory_pathway);
-    
-    input_thread.join();
-    pathway_thread.join();
+    sense.open();
+    // wait for 5 seconds
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    sense.close();
 
     return 0;
 }
