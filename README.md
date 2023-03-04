@@ -27,7 +27,6 @@ project/
 ./install_dependencies.sh
 ```
 
-
 ## Build
 
 ```bash
@@ -45,3 +44,11 @@ Run the program with
 cd build
 ./overseer
 ```
+
+## Third-Party Libraries
+
+This project was build using these libraries:
+
+* Image Processing: [OpenCV2](https://opencv.org/)
+* Testing: [GoogleTest](https://github.com/google/googletest)
+* Logging: [GLog](https://github.com/google/glog#user-guide)
