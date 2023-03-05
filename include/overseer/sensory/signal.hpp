@@ -6,6 +6,8 @@
 #include <queue>
 #include <string>
 
+#include <glog/logging.h>
+
 
 namespace overseer
 {

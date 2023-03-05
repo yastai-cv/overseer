@@ -12,7 +12,7 @@ VisualMemory::VisualMemory(imagekey_t max_size)
 imagekey_t VisualMemory::generate_image_id(cv::Mat &image)
 {
     imagekey_t id = reinterpret_cast<imagekey_t>(&image);
-    std::cout << "Image id: " << id << std::endl;
+    DLOG(INFO) << "Image id: " << id;
     return id;
 }
 
@@ -33,18 +33,18 @@ imagekey_t VisualMemory::put_image(cv::Mat image)
 
 void VisualMemory::print_memory()
 {
-    std::cout << "Allocated keys" << std::endl;
+    DLOG(INFO) << "Allocated keys";
     std::queue<imagekey_t> copy_keys = keys;
     while (copy_keys.size() > 0)
     {
-        std::cout << "Key: " << copy_keys.front() << std::endl;
+        DLOG(INFO) << "Key: " << copy_keys.front();
         copy_keys.pop();
     }
 
-    std::cout << "Memory size: " << memory.size() << std::endl;
+    DLOG(INFO) << "Memory size: " << memory.size();
     for (auto &item : memory)
     {
-        std::cout << "Key: " << item.first << std::endl;
+        DLOG(INFO) << "Key: " << item.first;
     }
 }
 

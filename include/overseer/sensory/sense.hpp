@@ -3,6 +3,8 @@
 #include <string>
 #include <thread>
 
+#include <glog/logging.h>
+
 #include <overseer/sensory/input.hpp>
 #include <overseer/sensory/pathway.hpp>
 #include <overseer/sensory/signal.hpp>

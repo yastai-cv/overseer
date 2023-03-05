@@ -55,7 +55,7 @@ void Signal::close()
 
 void Signal::notify(int value)
 {
-    std::cout << "Notified from " << name << ": " << value << std::endl;
+    LOG(INFO) << "Notified from " << name << ": " << value;
 }
 
 } // namespace sensory

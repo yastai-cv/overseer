@@ -1,9 +1,17 @@
 #pragma once
 
+#include <iostream>
 #include <memory>
+
+#include <glog/logging.h>
+#include <opencv2/opencv.hpp>
 
 #include "overseer/vision/image.hpp"
 #include "overseer/vision/visual_memory.hpp"
+#include "overseer/sensory/input.hpp"
+#include "overseer/sensory/pathway.hpp"
+#include "overseer/sensory/sense.hpp"
+#include "overseer/sensory/signal.hpp"
 
 
 namespace overseer {

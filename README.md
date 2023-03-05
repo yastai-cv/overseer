@@ -27,12 +27,21 @@ project/
 ./install_dependencies.sh
 ```
 
-
 ## Build
+
+Build the project for release
 
 ```bash
 cd build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build .  --parallel $(nproc) --target overseer
+```
+
+Build the project for debug
+
+```bash
+cd build
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 cmake --build .  --parallel $(nproc)
 pushd tests
 ./overseer_test_main
@@ -43,5 +52,13 @@ Run the program with
 
 ```bash
 cd build
-./overseer
+GLOG_logtostderr=1 ./overseer
 ```
+
+## Third-Party Libraries
+
+This project was build using these libraries:
+
+* Image Processing: [OpenCV2](https://opencv.org/)
+* Testing: [GoogleTest](https://github.com/google/googletest)
+* Logging: [GLog](https://github.com/google/glog#user-guide)

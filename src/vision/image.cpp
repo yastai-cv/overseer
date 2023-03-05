@@ -18,7 +18,7 @@ int ImageInstance::load(const char *image_path)
     cv::Mat image = cv::imread(image_path);
     if (image.empty())
     {
-        std::cerr << "Failed to load image" << std::endl;
+        LOG(FATAL) << "Failed to load image";
         return -1;
     }
     this->push_image_to_memory(image);
@@ -29,7 +29,7 @@ int ImageInstance::load(const cv::Mat &image)
 {
     if (image.empty())
     {
-        std::cerr << "Failed to load image" << std::endl;
+        LOG(FATAL) << "Failed to load image";
         return -1;
     }
     this->push_image_to_memory(image);
