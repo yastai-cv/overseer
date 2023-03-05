@@ -26,6 +26,7 @@ public:
     void close();
 private:
     std::string name;
+    bool running = false;
     // Sense is a collection of Input, Pathway, and Signal
     // Input is responsible for collecting data from the source.
     Input* input;

@@ -17,6 +17,7 @@ Sense::~Sense()
 
 void Sense::open()
 {
+    running = true;
     input_thread = std::thread(&Input::collect, input);
     pathway_thread = std::thread(&Pathway::process, pathway);
     signal_thread = std::thread(&Signal::broadcast, signal);
@@ -24,6 +25,12 @@ void Sense::open()
 
 void Sense::close()
 {
+    // Make sure the threads are running before closing them.
+    if (!running) {
+        std::cout << "Sense is not running." << std::endl;
+        return;
+    }
+    running = false;
     std::cout << "Closing sense..." << std::endl;
     input->close();
     std::cout << "Closing input..." << std::endl;
