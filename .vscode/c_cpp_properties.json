@@ -3,7 +3,12 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/external/opencv-4.x/include",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/external/build",
+                "${workspaceFolder}/external/opencv-4.x/modules/core/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang-12",

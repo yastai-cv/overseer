@@ -6,6 +6,7 @@ project(overseer VERSION 1.0)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 20)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 # Options for building
 OPTION(OVERSEER_BUILD_TEST "Build tests" ON)
@@ -17,14 +18,15 @@ include_directories(include)
 # Add source files
 set(SOURCES
     src/main.cpp
-    # src/overseer.cpp
-    # src/signal.cpp
+    src/overseer.cpp
     # src/cognition/task.cpp
     # src/perception/cortex_worker.cpp
-    # src/sensory/sensory_input.cpp
-    # src/sensory/sensory_pathway.cpp
-    # src/vision/image.cpp
-    # src/vision/visual_memory.cpp
+    src/sensory/signal.cpp
+    src/sensory/input.cpp
+    src/sensory/pathway.cpp
+    src/sensory/sense.cpp
+    src/vision/image.cpp
+    src/vision/visual_memory.cpp
 )
 
 # Add external libraries
