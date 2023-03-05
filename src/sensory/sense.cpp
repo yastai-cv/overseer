@@ -27,19 +27,19 @@ void Sense::close()
 {
     // Make sure the threads are running before closing them.
     if (!running) {
-        std::cout << "Sense is not running." << std::endl;
+        LOG(WARNING) << "Sense is not running.";
         return;
     }
     running = false;
-    std::cout << "Closing sense..." << std::endl;
+    LOG(INFO) << "Closing sense...";
     input->close();
-    std::cout << "Closing input..." << std::endl;
+    DLOG(INFO) << "Closing input...";
     input_thread.join();
     pathway->close();
-    std::cout << "Closing pathway..." << std::endl;
+    DLOG(INFO) << "Closing pathway...";
     pathway_thread.join();
     signal->close();
-    std::cout << "Closing signal..." << std::endl;
+    DLOG(INFO) << "Closing signal...";
     signal_thread.join();
 };
 

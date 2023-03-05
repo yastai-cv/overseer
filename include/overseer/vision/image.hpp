@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+
+#include <glog/logging.h>
 #include <opencv2/opencv.hpp>
 
 #include "overseer/vision/visual_memory.hpp"

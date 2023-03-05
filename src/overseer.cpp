@@ -1,12 +1,4 @@
-#include <iostream>
-#include <opencv2/opencv.hpp>
 #include "overseer/overseer.hpp"
-#include "overseer/vision/image.hpp"
-#include "overseer/vision/visual_memory.hpp"
-#include "overseer/sensory/input.hpp"
-#include "overseer/sensory/pathway.hpp"
-#include "overseer/sensory/signal.hpp"
-#include "overseer/sensory/sense.hpp"
 
 
 namespace overseer
@@ -20,11 +12,11 @@ Overseer::Overseer()
 int Overseer::run(const char *image_path)
 {
     // Load image
-    std::cout << "Loading image..." << std::endl;
+    LOG(INFO) << "Loading image...";
     int loaded = this->image.load(image_path);
     if (loaded != 0)
     {
-        std::cerr << "Failed to load image" << std::endl;
+        LOG(FATAL) << "Failed to load image";
         return -1;
     }
     // Check memory
@@ -32,10 +24,10 @@ int Overseer::run(const char *image_path)
 
     // Retrieve image
     const cv::Mat imgRef = this->image.get_image();
-    std::cout << "Displaying image..." << std::endl;
+    LOG(INFO) << "Displaying image...";
     if (imgRef.empty())
     {
-        std::cerr << "Failed to display image" << std::endl;
+        LOG(FATAL) << "Failed to display image";
         return -1;
     }
     // Display image

@@ -29,7 +29,7 @@ void Pathway::process()
 void Pathway::run_tasks(int value)
 {
     // Process the value
-    std::cout << "Processed input from " << input->get_name() <<": " << value << std::endl;
+    LOG(INFO) << "Processed input from " << input->get_name() <<": " << value;
 }
 
 } // namespace sensory

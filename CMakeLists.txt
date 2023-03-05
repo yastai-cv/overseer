@@ -35,11 +35,22 @@ set(CMAKE_PREFIX_PATH "external/build" ${CMAKE_PREFIX_PATH})
 # Find OpenCV package
 find_package(OpenCV REQUIRED)
 
+# Include glog headers
+# TODO: include gflags headers
+include(FetchContent)
+FetchContent_Declare(
+    glog
+    GIT_REPOSITORY https://github.com/google/glog.git
+    GIT_TAG        v0.6.0
+)
+FetchContent_MakeAvailable(glog)
+
+
 # Add executable target
 add_executable(overseer ${SOURCES})
 
 # Link executable target with OpenCV libraries
-target_link_libraries(overseer ${OpenCV_LIBS})
+target_link_libraries(overseer ${OpenCV_LIBS} glog::glog)
 # target_link_libraries(overseer ${OpenCV_LIBS} opencv_contrib)
 
 # Add testing subdirectory

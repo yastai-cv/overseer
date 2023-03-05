@@ -1,8 +1,11 @@
 #pragma once
+
 #include <iostream>
 #include <map>
 #include <memory>
 #include <queue>
+
+#include <glog/logging.h>
 #include <opencv2/opencv.hpp>
 
 

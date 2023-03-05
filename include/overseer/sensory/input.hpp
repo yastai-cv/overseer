@@ -4,12 +4,15 @@
 #include <condition_variable>
 #include <memory>
 #include <mutex>
-#include <opencv2/opencv.hpp>
 #include <queue>
 #include <string>
 #include <thread>
 
+#include <glog/logging.h>
+#include <opencv2/opencv.hpp>
+
 #include <overseer/vision/image.hpp>
+
 
 namespace overseer
 {
