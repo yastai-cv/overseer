@@ -1,59 +1,56 @@
 #pragma once
-#include <string>
+
+#include <condition_variable>
+#include <iostream>
 #include <mutex>
 #include <queue>
+#include <string>
 
 
 namespace overseer
 {
 namespace sensory
 {
+
+// Signal is a queue of values that can be pushed to by a pathway, and
+// broadcast to subscribers.
 class Signal
 {
 public:
-    Signal() {};
-    Signal(std::string name) : name(name) {};
+    Signal(std::string name);
+    ~Signal();
 
-    void push(int value) {
-        std::lock_guard<std::mutex> lock(queue_mutex);
-        queue.push(value);
-        queue_cv.notify_one();
-    }
+    // Push a value to the queue
+    void push(int value);
 
-    void broadcast() {
-        while (!done) {
-            // Wait for a value to be pushed
-            std::unique_lock<std::mutex> lock(queue_mutex);
-            queue_cv.wait(lock, [this](){ return !queue.empty() || done; });
-            if (done && queue.empty()) {
-                break;
-            }
-            int value = queue.front();
-            queue.pop();
-            lock.unlock();
-            // Notify subscribers
-            notify(value);
-        }
-    }
+    // Broadcast the values to the subscribers
+    void broadcast();
+
+    // Add a subscriber
     void subscribe();
+
+    // Remove a subscriber
     void unsubscribe();
-    void close() {
-        std::lock_guard<std::mutex> lock(queue_mutex);
-        done = true;
-        queue_cv.notify_one();
-    }
+
+    // Stop waiting for the next value.
+    void close();
 private:
+    // The name of the signal
     std::string name;
+    // Subscribers to the signal
+    // std::vector<Reception*> receptions;
+    // Whether the signal is closed
     bool done = false;
-    // std::queue<std::unique_ptr<vision::ImageInstance>> queue;
+    // The queue of values
     std::queue<int> queue;
+    // std::queue<std::unique_ptr<vision::ImageInstance>> queue;
+    
+    // Control access to the queue.
     std::mutex queue_mutex;
     std::condition_variable queue_cv;
-    // std::vector<Reception*> receptions;
 
-    void notify(int value) {
-        std::cout << "Notified from " << name << ": " << value << std::endl;
-    }
+    // Pass the value to the subscribers
+    void notify(int value);
 };
 
 class Reception

@@ -1,14 +1,12 @@
 #include "overseer/vision/image.hpp"
 
 
-namespace overseer {
+namespace overseer
+{
 namespace vision
 {
 
-ImageInstance::ImageInstance()
-{
-    this->memory = std::make_shared<VisualMemory>();
-}
+ImageInstance::ImageInstance() {}
 
 ImageInstance::ImageInstance(std::shared_ptr<VisualMemory> memory)
 {

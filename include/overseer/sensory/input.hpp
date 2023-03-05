@@ -1,12 +1,14 @@
 #pragma once
-#include <string>
-#include <memory>
-#include <queue>
-#include <thread>
-#include <mutex>
+
 #include <chrono>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
 #include <opencv2/opencv.hpp>
+#include <queue>
+#include <string>
+#include <thread>
+
 #include <overseer/vision/image.hpp>
 
 namespace overseer
@@ -33,66 +35,42 @@ class CameraSource : public Source
 };
 
 
-
+// This class is responsible for collecting images from a source and
+// storing them in a queue. The queue is then consumed by the
+// Pathway class, for later processing.
 class Input
 {
 public:
-    // Use unique pointer with source
-    Input(std::string name, Source *source) : name(name), source(source) {};
+    // TODO: Use unique pointer with source
+    Input(std::string name, Source *source);
+    ~Input();
 
-    std::string get_name() {
-        return name;
-    }
+    // Retrieve the name of the input.
+    std::string get_name();
 
-    bool is_done() {
-        return done;
-    }
-
-    void collect()
-    {
-        int i = 0;
-        while (!done) {
-            std::unique_lock<std::mutex> lock(queue_mutex);
-            queue.push(i++);
-            lock.unlock();
-            queue_cv.notify_one();
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        }
-        queue_cv.notify_one();
-    }
+    // Retrieve the next image instance from the source.
+    void collect();
 
     // std::unique_ptr<vision::ImageInstance> next()
-    int pull()
-    {
-        std::unique_lock<std::mutex> lock(queue_mutex);
-        queue_cv.wait(lock, [this](){ return !queue.empty() || done; });
+    int pull();
 
-        if (done && queue.empty()) {
-            // TODO: use a cleaner way to break out of the loop
-            return -1;
-        }
-
-        int value = queue.front();
-        queue.pop();
-        lock.unlock();
-        return value;
-    }
-
-    void close()
-    {
-        std::lock_guard<std::mutex> lock(queue_mutex);
-        done = true;
-        queue_cv.notify_one();
-    }
+    // Stop the collection, and notify wherever is waiting for the next image.
+    // This should be called when the program is exiting.
+    void close();
 
 private:
+    // The name of the input.
     std::string name;
-    // std::unique_ptr<Source> source;
+    // The source of the input.
     Source *source;
+    // std::unique_ptr<Source> source;
+    // The queue of retrieved images and thread control variables.
     std::mutex queue_mutex;
     std::condition_variable queue_cv;
-    // std::queue<std::unique_ptr<vision::ImageInstance>> queue;
     std::queue<int> queue;
+    // std::queue<std::unique_ptr<vision::ImageInstance>> queue;
+
+    // Indicates whether the collection has stopped.
     bool done = false;
 };
 
